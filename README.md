@@ -51,11 +51,32 @@ npm install && npm run build
 
 Change this password after first login.
 
-## Subdomain notes
+## Live server / subdomain (fixes 403)
 
-- Set `APP_URL` to your subdomain URL in `.env`
-- Document root must be the `public` folder
-- Ensure `storage/` and `bootstrap/cache/` are writable
+**Best setup:** in cPanel / hosting, set the subdomain document root to:
+
+`.../warrenty-mtc/public`
+
+Not the project root folder.
+
+Then on the server:
+
+```bash
+composer install --no-dev --optimize-autoloader
+cp .env.example .env
+# edit .env: APP_URL, DB_*, APP_DEBUG=false
+php artisan key:generate
+php artisan migrate --seed
+npm install && npm run build
+chmod -R 775 storage bootstrap/cache
+```
+
+If you still get **403 Forbidden**:
+
+1. Document root must be `public` (or use the root `.htaccess` that routes into `public/`)
+2. Do not leave `Options` directives that the host blocks (already removed from `public/.htaccess`)
+3. Make sure `public/index.php` and `public/.htaccess` were uploaded
+4. `storage` and `bootstrap/cache` must be writable by the web user
 
 ## Menu
 

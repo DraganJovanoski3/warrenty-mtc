@@ -25,11 +25,14 @@ class AnalyticsController extends Controller
         $uniqueCompanies = (clone $base)->distinct('company_name')->count('company_name');
 
         $byProduct = Product::query()
+            ->whereHas('installations', function ($q) use ($dateFrom, $dateTo) {
+                $q->whereDate('installation_date', '>=', $dateFrom)
+                    ->whereDate('installation_date', '<=', $dateTo);
+            })
             ->withCount(['installations as installations_count' => function ($q) use ($dateFrom, $dateTo) {
                 $q->whereDate('installation_date', '>=', $dateFrom)
                     ->whereDate('installation_date', '<=', $dateTo);
             }])
-            ->having('installations_count', '>', 0)
             ->orderByDesc('installations_count')
             ->limit(15)
             ->get();

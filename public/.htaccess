@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
+        # Avoid Options here — many shared hosts return 403 if Options is not allowed in .htaccess
     </IfModule>
 
     RewriteEngine On
