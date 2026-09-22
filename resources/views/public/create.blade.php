@@ -71,8 +71,15 @@
                 <div class="p-5 grid sm:grid-cols-2 gap-4">
                     <div class="sm:col-span-2">
                         <x-input-label for="product_id" value="Select Product" />
+                        @php
+                            $productOptions = $products->map(fn ($p) => [
+                                'id' => $p->id,
+                                'part_number' => $p->part_number,
+                                'description' => $p->description,
+                            ])->values();
+                        @endphp
                         <select id="product_id" name="product_id" required class="block mt-1 w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500"
-                            data-products='@json($products->map(fn($p) => ["id" => $p->id, "part_number" => $p->part_number, "description" => $p->description]))'>
+                            data-products='@json($productOptions)'>
                             <option value="">— Choose product —</option>
                             @foreach ($products as $product)
                                 <option value="{{ $product->id }}" @selected(old('product_id') == $product->id)>
@@ -110,9 +117,11 @@
             </section>
 
             <div class="flex items-center justify-end gap-3">
-                <x-primary-button class="!bg-amber-500 !text-slate-900 hover:!bg-amber-400 focus:!bg-amber-500 active:!bg-amber-600" @disabled($products->isEmpty())>
+                <button type="submit"
+                    class="inline-flex items-center px-4 py-2 bg-amber-500 border border-transparent rounded-md font-semibold text-xs text-slate-900 uppercase tracking-widest hover:bg-amber-400 focus:bg-amber-500 active:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                    @if ($products->isEmpty()) disabled @endif>
                     Submit Installation
-                </x-primary-button>
+                </button>
             </div>
         </form>
     </div>
