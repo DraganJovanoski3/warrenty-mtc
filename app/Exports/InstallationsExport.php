@@ -42,6 +42,8 @@ class InstallationsExport implements FromCollection, WithHeadings, WithMapping, 
             'Invoice Number',
             'Purchase Date',
             'Submitted At',
+            'VIN Photo URL',
+            'Mileage Photo URL',
             'Created At',
         ];
     }
@@ -63,6 +65,8 @@ class InstallationsExport implements FromCollection, WithHeadings, WithMapping, 
             $installation->invoice_number,
             optional($installation->invoice_date)->format('Y-m-d'),
             optional($installation->submitted_at)->format('Y-m-d H:i'),
+            $installation->vinPhotoUrl(),
+            $installation->mileagePhotoUrl(),
             optional($installation->created_at)->format('Y-m-d H:i'),
         ];
     }

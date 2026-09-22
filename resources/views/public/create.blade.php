@@ -5,7 +5,7 @@
             <p class="text-sm text-slate-500 mt-1">Fill in customer, truck and part details. Submitted date is set automatically.</p>
         </div>
 
-        <form method="POST" action="{{ route('public.submit') }}" class="space-y-6" id="installation-form">
+        <form method="POST" action="{{ route('public.submit') }}" class="space-y-6" id="installation-form" enctype="multipart/form-data">
             @csrf
 
             <section class="bg-white border border-slate-200 rounded-lg overflow-hidden">
@@ -60,6 +60,21 @@
                         <x-input-label for="installation_date" value="4. Installation Date" />
                         <x-text-input id="installation_date" name="installation_date" type="date" class="block mt-1 w-full" :value="old('installation_date', now()->format('Y-m-d'))" required />
                         <x-input-error :messages="$errors->get('installation_date')" class="mt-2" />
+                    </div>
+                    <div class="sm:col-span-2 rounded-md bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-900">
+                        Upload clear photos of the VIN plate and odometer as proof.
+                    </div>
+                    <div>
+                        <x-input-label for="vin_photo" value="5. VIN Photo" />
+                        <input id="vin_photo" name="vin_photo" type="file" accept="image/*" capture="environment" required
+                            class="block mt-1 w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:bg-slate-900 file:text-white file:text-sm hover:file:bg-slate-800" />
+                        <x-input-error :messages="$errors->get('vin_photo')" class="mt-2" />
+                    </div>
+                    <div>
+                        <x-input-label for="mileage_photo" value="6. Mileage / Odometer Photo" />
+                        <input id="mileage_photo" name="mileage_photo" type="file" accept="image/*" capture="environment" required
+                            class="block mt-1 w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:bg-slate-900 file:text-white file:text-sm hover:file:bg-slate-800" />
+                        <x-input-error :messages="$errors->get('mileage_photo')" class="mt-2" />
                     </div>
                 </div>
             </section>

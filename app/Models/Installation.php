@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class Installation extends Model
 {
@@ -15,7 +16,9 @@ class Installation extends Model
         'installer_company_name',
         'truck_number',
         'vin',
+        'vin_photo',
         'mileage_at_installation',
+        'mileage_photo',
         'installation_date',
         'product_id',
         'part_number',
@@ -43,6 +46,10 @@ class Installation extends Model
                 $installation->submitted_at = now();
             }
         });
+
+        static::deleting(function (Installation $installation) {
+            $installation->deleteProofPhotos();
+        });
     }
 
     public function product(): BelongsTo
@@ -53,6 +60,34 @@ class Installation extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function vinPhotoUrl(): ?string
+    {
+        return $this->vin_photo
+            ? Storage::disk('public')->url($this->vin_photo)
+            : null;
+    }
+
+    public function mileagePhotoUrl(): ?string
+    {
+        return $this->mileage_photo
+            ? Storage::disk('public')->url($this->mileage_photo)
+            : null;
+    }
+
+    public function hasProofPhotos(): bool
+    {
+        return filled($this->vin_photo) && filled($this->mileage_photo);
+    }
+
+    public function deleteProofPhotos(): void
+    {
+        foreach (['vin_photo', 'mileage_photo'] as $field) {
+            if ($this->{$field}) {
+                Storage::disk('public')->delete($this->{$field});
+            }
+        }
     }
 
     public function scopeFiltered(Builder $query, array $filters): Builder

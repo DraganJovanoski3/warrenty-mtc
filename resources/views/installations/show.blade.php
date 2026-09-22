@@ -35,6 +35,32 @@
             </div>
 
             <div class="bg-white border border-slate-200 rounded-lg p-6">
+                <h3 class="text-xs uppercase tracking-wide text-slate-500 mb-3">Proof Photos</h3>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <div class="text-sm text-slate-500 mb-2">VIN Photo</div>
+                        @if ($installation->vinPhotoUrl())
+                            <a href="{{ $installation->vinPhotoUrl() }}" target="_blank" rel="noopener">
+                                <img src="{{ $installation->vinPhotoUrl() }}" alt="VIN proof" class="w-full max-h-72 object-contain rounded border border-slate-200 bg-slate-50">
+                            </a>
+                        @else
+                            <p class="text-sm text-slate-400">No VIN photo uploaded.</p>
+                        @endif
+                    </div>
+                    <div>
+                        <div class="text-sm text-slate-500 mb-2">Mileage / Odometer Photo</div>
+                        @if ($installation->mileagePhotoUrl())
+                            <a href="{{ $installation->mileagePhotoUrl() }}" target="_blank" rel="noopener">
+                                <img src="{{ $installation->mileagePhotoUrl() }}" alt="Mileage proof" class="w-full max-h-72 object-contain rounded border border-slate-200 bg-slate-50">
+                            </a>
+                        @else
+                            <p class="text-sm text-slate-400">No mileage photo uploaded.</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-lg p-6">
                 <h3 class="text-xs uppercase tracking-wide text-slate-500 mb-3">Part &amp; Purchase</h3>
                 <dl class="grid sm:grid-cols-2 gap-4 text-sm">
                     <div><dt class="text-slate-500">Part Number</dt><dd class="font-mono font-medium">{{ $installation->part_number }}</dd></div>

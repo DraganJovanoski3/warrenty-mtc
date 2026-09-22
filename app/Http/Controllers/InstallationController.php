@@ -6,6 +6,8 @@ use App\Models\Installation;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class InstallationController extends Controller
@@ -36,14 +38,23 @@ class InstallationController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $data = $this->validated($request);
+        $data = $this->validated($request, true);
 
         $product = Product::findOrFail($data['product_id']);
-        $data['part_number'] = $product->part_number;
-        $data['part_description'] = $product->description;
-        $data['user_id'] = $request->user()->id;
+        unset($data['vin_photo'], $data['mileage_photo']);
 
-        Installation::create($data);
+        $installation = Installation::create([
+            ...$data,
+            'part_number' => $product->part_number,
+            'part_description' => $product->description,
+            'user_id' => $request->user()->id,
+        ]);
+
+        $this->storeProofPhotos(
+            $installation,
+            $request->file('vin_photo'),
+            $request->file('mileage_photo')
+        );
 
         return redirect()
             ->route('installations.index')
@@ -70,13 +81,24 @@ class InstallationController extends Controller
 
     public function update(Request $request, Installation $installation): RedirectResponse
     {
-        $data = $this->validated($request);
+        $data = $this->validated($request, false);
 
         $product = Product::findOrFail($data['product_id']);
-        $data['part_number'] = $product->part_number;
-        $data['part_description'] = $product->description;
+        unset($data['vin_photo'], $data['mileage_photo']);
 
-        $installation->update($data);
+        $installation->update([
+            ...$data,
+            'part_number' => $product->part_number,
+            'part_description' => $product->description,
+        ]);
+
+        if ($request->hasFile('vin_photo')) {
+            $this->replacePhoto($installation, 'vin_photo', $request->file('vin_photo'));
+        }
+
+        if ($request->hasFile('mileage_photo')) {
+            $this->replacePhoto($installation, 'mileage_photo', $request->file('mileage_photo'));
+        }
 
         return redirect()
             ->route('installations.index')
@@ -92,8 +114,12 @@ class InstallationController extends Controller
             ->with('success', 'Installation record deleted.');
     }
 
-    private function validated(Request $request): array
+    private function validated(Request $request, bool $photosRequired): array
     {
+        $photoRules = $photosRequired
+            ? ['required', 'image', 'max:5120']
+            : ['nullable', 'image', 'max:5120'];
+
         return $request->validate([
             'company_name' => ['required', 'string', 'max:255'],
             'tax_id' => ['nullable', 'string', 'max:100'],
@@ -106,6 +132,29 @@ class InstallationController extends Controller
             'product_id' => ['required', 'exists:products,id'],
             'invoice_number' => ['nullable', 'string', 'max:100'],
             'invoice_date' => ['nullable', 'date'],
+            'vin_photo' => $photoRules,
+            'mileage_photo' => $photoRules,
+        ]);
+    }
+
+    private function storeProofPhotos(Installation $installation, UploadedFile $vinPhoto, UploadedFile $mileagePhoto): void
+    {
+        $folder = 'installations/'.$installation->id;
+
+        $installation->update([
+            'vin_photo' => $vinPhoto->store($folder, 'public'),
+            'mileage_photo' => $mileagePhoto->store($folder, 'public'),
+        ]);
+    }
+
+    private function replacePhoto(Installation $installation, string $field, UploadedFile $file): void
+    {
+        if ($installation->{$field}) {
+            Storage::disk('public')->delete($installation->{$field});
+        }
+
+        $installation->update([
+            $field => $file->store('installations/'.$installation->id, 'public'),
         ]);
     }
 }

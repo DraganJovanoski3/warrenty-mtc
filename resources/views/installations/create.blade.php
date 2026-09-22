@@ -13,7 +13,7 @@
 
     <div class="py-8">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <form method="POST" action="{{ $action }}" class="space-y-6" id="installation-form">
+            <form method="POST" action="{{ $action }}" class="space-y-6" id="installation-form" enctype="multipart/form-data">
                 @csrf
                 @if ($isEdit)
                     @method('PUT')
@@ -73,6 +73,39 @@
                             <x-input-label for="installation_date" value="4. Installation Date" />
                             <x-text-input id="installation_date" name="installation_date" type="date" class="block mt-1 w-full" :value="old('installation_date', isset($installation) ? $installation->installation_date->format('Y-m-d') : now()->format('Y-m-d'))" required />
                             <x-input-error :messages="$errors->get('installation_date')" class="mt-2" />
+                        </div>
+                        <div class="sm:col-span-2 rounded-md bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-900">
+                            Upload clear photos of the VIN plate and odometer as proof.
+                        </div>
+                        <div>
+                            <x-input-label for="vin_photo" value="5. VIN Photo" />
+                            @if ($isEdit && $installation->vinPhotoUrl())
+                                <div class="mt-1 mb-2">
+                                    <a href="{{ $installation->vinPhotoUrl() }}" target="_blank" rel="noopener" class="inline-block">
+                                        <img src="{{ $installation->vinPhotoUrl() }}" alt="Current VIN photo" class="h-28 w-auto rounded border border-slate-200 object-cover">
+                                    </a>
+                                    <p class="text-xs text-slate-500 mt-1">Leave empty to keep the current photo.</p>
+                                </div>
+                            @endif
+                            <input id="vin_photo" name="vin_photo" type="file" accept="image/*" capture="environment"
+                                @unless($isEdit) required @endunless
+                                class="block mt-1 w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:bg-slate-900 file:text-white file:text-sm hover:file:bg-slate-800" />
+                            <x-input-error :messages="$errors->get('vin_photo')" class="mt-2" />
+                        </div>
+                        <div>
+                            <x-input-label for="mileage_photo" value="6. Mileage / Odometer Photo" />
+                            @if ($isEdit && $installation->mileagePhotoUrl())
+                                <div class="mt-1 mb-2">
+                                    <a href="{{ $installation->mileagePhotoUrl() }}" target="_blank" rel="noopener" class="inline-block">
+                                        <img src="{{ $installation->mileagePhotoUrl() }}" alt="Current mileage photo" class="h-28 w-auto rounded border border-slate-200 object-cover">
+                                    </a>
+                                    <p class="text-xs text-slate-500 mt-1">Leave empty to keep the current photo.</p>
+                                </div>
+                            @endif
+                            <input id="mileage_photo" name="mileage_photo" type="file" accept="image/*" capture="environment"
+                                @unless($isEdit) required @endunless
+                                class="block mt-1 w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:bg-slate-900 file:text-white file:text-sm hover:file:bg-slate-800" />
+                            <x-input-error :messages="$errors->get('mileage_photo')" class="mt-2" />
                         </div>
                     </div>
                 </section>

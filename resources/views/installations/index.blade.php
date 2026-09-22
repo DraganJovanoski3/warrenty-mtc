@@ -58,6 +58,7 @@
                                 <th class="px-4 py-3 font-medium">Truck / VIN</th>
                                 <th class="px-4 py-3 font-medium">Part</th>
                                 <th class="px-4 py-3 font-medium">Invoice</th>
+                                <th class="px-4 py-3 font-medium">Proof</th>
                                 <th class="px-4 py-3 font-medium"></th>
                             </tr>
                         </thead>
@@ -78,6 +79,13 @@
                                         <div class="text-xs text-slate-500">{{ Str::limit($item->part_description, 40) }}</div>
                                     </td>
                                     <td class="px-4 py-3">{{ $item->invoice_number ?: '—' }}</td>
+                                    <td class="px-4 py-3">
+                                        @if ($item->hasProofPhotos())
+                                            <span class="inline-flex px-2 py-0.5 rounded text-xs bg-emerald-50 text-emerald-700 border border-emerald-200">Yes</span>
+                                        @else
+                                            <span class="inline-flex px-2 py-0.5 rounded text-xs bg-slate-100 text-slate-500 border border-slate-200">No</span>
+                                        @endif
+                                    </td>
                                     <td class="px-4 py-3 text-right whitespace-nowrap">
                                         <a href="{{ route('installations.show', $item) }}" class="text-amber-700 hover:underline">View</a>
                                         <a href="{{ route('installations.edit', $item) }}" class="ms-3 text-slate-600 hover:underline">Edit</a>
@@ -90,7 +98,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-4 py-10 text-center text-slate-500">No installation records found.</td>
+                                    <td colspan="8" class="px-4 py-10 text-center text-slate-500">No installation records found.</td>
                                 </tr>
                             @endforelse
                         </tbody>

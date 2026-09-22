@@ -6,6 +6,7 @@ use App\Models\Installation;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\View\View;
 
 class PublicInstallationController extends Controller
@@ -31,11 +32,15 @@ class PublicInstallationController extends Controller
             'product_id' => ['required', 'exists:products,id'],
             'invoice_number' => ['nullable', 'string', 'max:100'],
             'invoice_date' => ['nullable', 'date'],
+            'vin_photo' => ['required', 'image', 'max:5120'],
+            'mileage_photo' => ['required', 'image', 'max:5120'],
         ]);
 
         $product = Product::active()->findOrFail($data['product_id']);
 
-        Installation::create([
+        unset($data['vin_photo'], $data['mileage_photo']);
+
+        $installation = Installation::create([
             ...$data,
             'part_number' => $product->part_number,
             'part_description' => $product->description,
@@ -43,8 +48,20 @@ class PublicInstallationController extends Controller
             'submitted_at' => now(),
         ]);
 
+        $this->storeProofPhotos($installation, $request->file('vin_photo'), $request->file('mileage_photo'));
+
         return redirect()
             ->route('public.form')
             ->with('success', 'Thank you. Your installation information has been submitted successfully.');
+    }
+
+    private function storeProofPhotos(Installation $installation, UploadedFile $vinPhoto, UploadedFile $mileagePhoto): void
+    {
+        $folder = 'installations/'.$installation->id;
+
+        $installation->update([
+            'vin_photo' => $vinPhoto->store($folder, 'public'),
+            'mileage_photo' => $mileagePhoto->store($folder, 'public'),
+        ]);
     }
 }

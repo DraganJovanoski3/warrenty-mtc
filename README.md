@@ -67,8 +67,10 @@ cp .env.example .env
 # edit .env: APP_URL, DB_*, APP_DEBUG=false
 php artisan key:generate
 php artisan migrate --seed
+php artisan storage:link
 npm install && npm run build
 chmod -R 775 storage bootstrap/cache
+# ensure storage/app/public is writable (VIN / mileage proof photos)
 ```
 
 If you still get **403 Forbidden**:
