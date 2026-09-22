@@ -24,6 +24,8 @@ class ExportController extends Controller
             'product_id' => ['nullable', 'exists:products,id'],
             'date_from' => ['nullable', 'date'],
             'date_to' => ['nullable', 'date', 'after_or_equal:date_from'],
+            'submitted_from' => ['nullable', 'date'],
+            'submitted_to' => ['nullable', 'date', 'after_or_equal:submitted_from'],
         ]);
 
         $filename = 'mtc-installations-'.now()->format('Y-m-d-His').'.xlsx';

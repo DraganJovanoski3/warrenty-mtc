@@ -40,7 +40,8 @@ class InstallationsExport implements FromCollection, WithHeadings, WithMapping, 
             'Part Number',
             'Part Description',
             'Invoice Number',
-            'Invoice Date',
+            'Purchase Date',
+            'Submitted At',
             'Created At',
         ];
     }
@@ -61,6 +62,7 @@ class InstallationsExport implements FromCollection, WithHeadings, WithMapping, 
             $installation->part_description,
             $installation->invoice_number,
             optional($installation->invoice_date)->format('Y-m-d'),
+            optional($installation->submitted_at)->format('Y-m-d H:i'),
             optional($installation->created_at)->format('Y-m-d H:i'),
         ];
     }

@@ -40,7 +40,9 @@
                     <div><dt class="text-slate-500">Part Number</dt><dd class="font-mono font-medium">{{ $installation->part_number }}</dd></div>
                     <div><dt class="text-slate-500">Part Description</dt><dd class="font-medium">{{ $installation->part_description }}</dd></div>
                     <div><dt class="text-slate-500">Invoice Number</dt><dd class="font-medium">{{ $installation->invoice_number ?: '—' }}</dd></div>
-                    <div><dt class="text-slate-500">Invoice Date</dt><dd class="font-medium">{{ optional($installation->invoice_date)->format('Y-m-d') ?: '—' }}</dd></div>
+                    <div><dt class="text-slate-500">Purchase Date</dt><dd class="font-medium">{{ optional($installation->invoice_date)->format('Y-m-d') ?: '—' }}</dd></div>
+                    <div><dt class="text-slate-500">Submitted At</dt><dd class="font-medium">{{ optional($installation->submitted_at)->format('Y-m-d H:i') ?: '—' }}</dd></div>
+                    <div><dt class="text-slate-500">Submitted by</dt><dd class="font-medium">{{ $installation->user?->name ?: 'Public form' }}</dd></div>
                 </dl>
             </div>
         </div>

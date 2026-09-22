@@ -5,9 +5,13 @@ use App\Http\Controllers\ExportController;
 use App\Http\Controllers\InstallationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicInstallationController;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/login');
+Route::get('/', [PublicInstallationController::class, 'create'])->name('public.form');
+Route::post('/submit', [PublicInstallationController::class, 'store'])
+    ->middleware('throttle:10,1')
+    ->name('public.submit');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AnalyticsController::class, 'index'])->name('dashboard');

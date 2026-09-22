@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-slate-800 leading-tight">Excel Export</h2>
-        <p class="text-sm text-slate-500 mt-1">Download installation data filtered by product and date range</p>
+        <p class="text-sm text-slate-500 mt-1">Download installation data filtered by product, installation date, or submitted date</p>
     </x-slot>
 
     <div class="py-8">
@@ -19,12 +19,23 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <x-input-label for="date_from" value="From date" />
+                        <x-input-label for="date_from" value="Installation from" />
                         <x-text-input id="date_from" name="date_from" type="date" class="block mt-1 w-full" />
                     </div>
                     <div>
-                        <x-input-label for="date_to" value="To date" />
+                        <x-input-label for="date_to" value="Installation to" />
                         <x-text-input id="date_to" name="date_to" type="date" class="block mt-1 w-full" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <x-input-label for="submitted_from" value="Submitted from" />
+                        <x-text-input id="submitted_from" name="submitted_from" type="date" class="block mt-1 w-full" />
+                    </div>
+                    <div>
+                        <x-input-label for="submitted_to" value="Submitted to" />
+                        <x-text-input id="submitted_to" name="submitted_to" type="date" class="block mt-1 w-full" />
                     </div>
                 </div>
 

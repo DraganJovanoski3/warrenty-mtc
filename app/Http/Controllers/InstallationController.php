@@ -12,7 +12,7 @@ class InstallationController extends Controller
 {
     public function index(Request $request): View
     {
-        $filters = $request->only(['product_id', 'date_from', 'date_to', 'search']);
+        $filters = $request->only(['product_id', 'date_from', 'date_to', 'submitted_from', 'submitted_to', 'search']);
 
         $installations = Installation::query()
             ->with('product')

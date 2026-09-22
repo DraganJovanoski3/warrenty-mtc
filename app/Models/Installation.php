@@ -23,6 +23,7 @@ class Installation extends Model
         'invoice_number',
         'invoice_date',
         'user_id',
+        'submitted_at',
     ];
 
     protected function casts(): array
@@ -30,8 +31,18 @@ class Installation extends Model
         return [
             'installation_date' => 'date',
             'invoice_date' => 'date',
+            'submitted_at' => 'datetime',
             'mileage_at_installation' => 'integer',
         ];
+    }
+
+    protected static function booted(): void
+    {
+        static::creating(function (Installation $installation) {
+            if (empty($installation->submitted_at)) {
+                $installation->submitted_at = now();
+            }
+        });
     }
 
     public function product(): BelongsTo
@@ -50,6 +61,8 @@ class Installation extends Model
             ->when($filters['product_id'] ?? null, fn ($q, $id) => $q->where('product_id', $id))
             ->when($filters['date_from'] ?? null, fn ($q, $from) => $q->whereDate('installation_date', '>=', $from))
             ->when($filters['date_to'] ?? null, fn ($q, $to) => $q->whereDate('installation_date', '<=', $to))
+            ->when($filters['submitted_from'] ?? null, fn ($q, $from) => $q->whereDate('submitted_at', '>=', $from))
+            ->when($filters['submitted_to'] ?? null, fn ($q, $to) => $q->whereDate('submitted_at', '<=', $to))
             ->when($filters['search'] ?? null, function ($q, $search) {
                 $q->where(function ($inner) use ($search) {
                     $inner->where('company_name', 'like', "%{$search}%")

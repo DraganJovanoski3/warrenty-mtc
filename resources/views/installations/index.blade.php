@@ -11,7 +11,7 @@
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
-            <form method="GET" class="bg-white border border-slate-200 rounded-lg p-4 grid sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end">
+            <form method="GET" class="bg-white border border-slate-200 rounded-lg p-4 grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-3 items-end">
                 <div>
                     <label class="block text-xs text-slate-500 mb-1">Product</label>
                     <select name="product_id" class="w-full rounded-md border-slate-300 text-sm focus:border-amber-500 focus:ring-amber-500">
@@ -22,12 +22,20 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs text-slate-500 mb-1">From</label>
+                    <label class="block text-xs text-slate-500 mb-1">Install from</label>
                     <input type="date" name="date_from" value="{{ $filters['date_from'] ?? '' }}" class="w-full rounded-md border-slate-300 text-sm focus:border-amber-500 focus:ring-amber-500">
                 </div>
                 <div>
-                    <label class="block text-xs text-slate-500 mb-1">To</label>
+                    <label class="block text-xs text-slate-500 mb-1">Install to</label>
                     <input type="date" name="date_to" value="{{ $filters['date_to'] ?? '' }}" class="w-full rounded-md border-slate-300 text-sm focus:border-amber-500 focus:ring-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1">Submitted from</label>
+                    <input type="date" name="submitted_from" value="{{ $filters['submitted_from'] ?? '' }}" class="w-full rounded-md border-slate-300 text-sm focus:border-amber-500 focus:ring-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1">Submitted to</label>
+                    <input type="date" name="submitted_to" value="{{ $filters['submitted_to'] ?? '' }}" class="w-full rounded-md border-slate-300 text-sm focus:border-amber-500 focus:ring-amber-500">
                 </div>
                 <div>
                     <label class="block text-xs text-slate-500 mb-1">Search</label>
@@ -44,7 +52,8 @@
                     <table class="min-w-full text-sm">
                         <thead class="bg-slate-50 text-slate-500 text-left">
                             <tr>
-                                <th class="px-4 py-3 font-medium">Date</th>
+                                <th class="px-4 py-3 font-medium">Install date</th>
+                                <th class="px-4 py-3 font-medium">Submitted</th>
                                 <th class="px-4 py-3 font-medium">Company</th>
                                 <th class="px-4 py-3 font-medium">Truck / VIN</th>
                                 <th class="px-4 py-3 font-medium">Part</th>
@@ -56,6 +65,9 @@
                             @forelse ($installations as $item)
                                 <tr class="border-t border-slate-100 hover:bg-slate-50">
                                     <td class="px-4 py-3 whitespace-nowrap">{{ $item->installation_date->format('Y-m-d') }}</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-slate-600">
+                                        {{ optional($item->submitted_at)->format('Y-m-d H:i') ?: '—' }}
+                                    </td>
                                     <td class="px-4 py-3">{{ $item->company_name }}</td>
                                     <td class="px-4 py-3">
                                         <div class="font-mono">{{ $item->truck_number }}</div>
@@ -78,7 +90,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="px-4 py-10 text-center text-slate-500">No installation records found.</td>
+                                    <td colspan="7" class="px-4 py-10 text-center text-slate-500">No installation records found.</td>
                                 </tr>
                             @endforelse
                         </tbody>

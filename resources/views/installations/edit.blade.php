@@ -113,10 +113,15 @@
                             <x-input-error :messages="$errors->get('invoice_number')" class="mt-2" />
                         </div>
                         <div>
-                            <x-input-label for="invoice_date" value="4. Invoice Date" />
+                            <x-input-label for="invoice_date" value="4. Purchase Date" />
                             <x-text-input id="invoice_date" name="invoice_date" type="date" class="block mt-1 w-full" :value="old('invoice_date', isset($installation) && $installation->invoice_date ? $installation->invoice_date->format('Y-m-d') : '')" />
                             <x-input-error :messages="$errors->get('invoice_date')" class="mt-2" />
                         </div>
+                        @unless ($isEdit)
+                            <div class="sm:col-span-2 rounded-md bg-slate-50 border border-slate-200 px-4 py-3 text-sm text-slate-600">
+                                Submitted date will be set automatically when you save.
+                            </div>
+                        @endunless
                     </div>
                 </section>
 
