@@ -13,6 +13,15 @@ Route::post('/submit', [PublicInstallationController::class, 'store'])
     ->middleware('throttle:10,1')
     ->name('public.submit');
 
+Route::get('/media/{path}', function (string $path) {
+    abort_unless(str_starts_with($path, 'installations/'), 404);
+
+    $disk = \Illuminate\Support\Facades\Storage::disk('public');
+    abort_unless($disk->exists($path), 404);
+
+    return $disk->response($path);
+})->where('path', '.*')->name('media.show');
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AnalyticsController::class, 'index'])->name('dashboard');
 

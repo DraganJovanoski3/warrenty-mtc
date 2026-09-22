@@ -64,16 +64,22 @@ class Installation extends Model
 
     public function vinPhotoUrl(): ?string
     {
-        return $this->vin_photo
-            ? Storage::disk('public')->url($this->vin_photo)
-            : null;
+        return $this->photoUrl($this->vin_photo);
     }
 
     public function mileagePhotoUrl(): ?string
     {
-        return $this->mileage_photo
-            ? Storage::disk('public')->url($this->mileage_photo)
-            : null;
+        return $this->photoUrl($this->mileage_photo);
+    }
+
+    private function photoUrl(?string $path): ?string
+    {
+        if (! filled($path)) {
+            return null;
+        }
+
+        // Serve via app route so images work without relying on public/storage symlink.
+        return route('media.show', ['path' => ltrim($path, '/')]);
     }
 
     public function hasProofPhotos(): bool
