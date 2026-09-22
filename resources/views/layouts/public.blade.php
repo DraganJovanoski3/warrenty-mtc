@@ -17,7 +17,7 @@
             <header class="bg-slate-900 border-b border-slate-800">
                 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
                     <div class="flex items-center gap-3">
-                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-amber-500 text-slate-900 font-bold text-sm">MTC</span>
+                        <img src="{{ asset('logo.png') }}" alt="MTC" class="h-10 w-auto">
                         <div>
                             <div class="text-white font-semibold tracking-wide">Warranty Tracker</div>
                             <div class="text-slate-400 text-xs">Installation information &amp; proof of application</div>
