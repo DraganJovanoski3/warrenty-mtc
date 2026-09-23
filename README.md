@@ -61,11 +61,24 @@ Keep the full Laravel app in `~/warranty.mtctruckparts.com/`. Serve only its `pu
 APP_URL=https://mtctruckparts.com/warranty
 ASSET_URL=https://mtctruckparts.com/warranty
 SESSION_PATH=/warranty
+
+MAIL_MAILER=smtp
+MAIL_HOST=localhost
+MAIL_PORT=587
+MAIL_USERNAME=warranty@mtctruckparts.com
+MAIL_PASSWORD=your-mailbox-password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=warranty@mtctruckparts.com
+MAIL_FROM_NAME="MTC Warranty"
+WARRANTY_CONTACT_EMAIL=warranty@mtctruckparts.com
 ```
+
+Claim confirmation emails are sent to the customer (and BCC to `WARRANTY_CONTACT_EMAIL`) after each new installation is saved. If SMTP fails, the claim is still stored and the error is logged.
 
 Then:
 
 ```bash
+php artisan migrate --force
 php artisan config:clear
 php artisan route:clear
 php artisan cache:clear

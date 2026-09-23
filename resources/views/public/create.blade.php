@@ -3,9 +3,17 @@
         <div class="mb-5 sm:mb-6">
             <h1 class="font-semibold text-lg sm:text-xl text-slate-800 leading-tight">INSTALLATION INFORMATION &amp; PROOF OF APPLICATION</h1>
             <p class="text-sm text-slate-500 mt-1">Fill in customer, truck and part details. Submitted date is set automatically.</p>
-            <div class="mt-4 rounded-md bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-950">
-                <strong>Important:</strong> Warranty must be claimed within <strong>30 days</strong> of purchase.
-                See the <a href="{{ route('pages.warranty-policy') }}" class="underline font-medium hover:text-amber-800">Warranty Policy</a> for details.
+            <div class="mt-4 rounded-md bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-950 space-y-2">
+                <p>
+                    <strong>Important:</strong> Warranty must be claimed within <strong>30 days</strong> of purchase.
+                    See the <a href="{{ route('pages.warranty-policy') }}" class="underline font-medium hover:text-amber-800">Warranty Policy</a> for details.
+                </p>
+                <p>
+                    After you submit, a confirmation email with your claim details will be sent to the address you enter below.
+                    If you spot a mistake, contact
+                    <a href="mailto:{{ config('services.mtc.warranty_contact_email') }}" class="underline font-medium hover:text-amber-800">{{ config('services.mtc.warranty_contact_email') }}</a>
+                    within those <strong>30 days</strong> so we can correct it.
+                </p>
             </div>
         </div>
 
@@ -22,18 +30,24 @@
                         <x-text-input id="company_name" name="company_name" class="block mt-1 w-full" :value="old('company_name')" required autocomplete="organization" />
                         <x-input-error :messages="$errors->get('company_name')" class="mt-2" />
                     </div>
+                    <div class="sm:col-span-2">
+                        <x-input-label for="customer_email" value="2. Customer Email" />
+                        <x-text-input id="customer_email" name="customer_email" type="email" class="block mt-1 w-full" :value="old('customer_email')" required autocomplete="email" />
+                        <p class="mt-1 text-xs text-slate-500">We will email your claim confirmation to this address.</p>
+                        <x-input-error :messages="$errors->get('customer_email')" class="mt-2" />
+                    </div>
                     <div>
-                        <x-input-label for="tax_id" value="2. Tax ID" />
+                        <x-input-label for="tax_id" value="3. Tax ID" />
                         <x-text-input id="tax_id" name="tax_id" class="block mt-1 w-full" :value="old('tax_id')" />
                         <x-input-error :messages="$errors->get('tax_id')" class="mt-2" />
                     </div>
                     <div>
-                        <x-input-label for="installer_company_name" value="4. Installer Company Name" />
+                        <x-input-label for="installer_company_name" value="5. Installer Company Name" />
                         <x-text-input id="installer_company_name" name="installer_company_name" class="block mt-1 w-full" :value="old('installer_company_name')" required />
                         <x-input-error :messages="$errors->get('installer_company_name')" class="mt-2" />
                     </div>
                     <div class="sm:col-span-2">
-                        <x-input-label for="customer_address" value="3. Customer Address" />
+                        <x-input-label for="customer_address" value="4. Customer Address" />
                         <textarea id="customer_address" name="customer_address" rows="3" class="block mt-1 w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 text-base" required>{{ old('customer_address') }}</textarea>
                         <x-input-error :messages="$errors->get('customer_address')" class="mt-2" />
                     </div>

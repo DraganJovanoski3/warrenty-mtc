@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'mtc' => [
+        'warranty_contact_email' => env('WARRANTY_CONTACT_EMAIL', 'warranty@mtctruckparts.com'),
+    ],
+
 ];

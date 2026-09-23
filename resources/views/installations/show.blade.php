@@ -18,6 +18,7 @@
                 <h3 class="text-xs uppercase tracking-wide text-slate-500 mb-3">Customer / Company</h3>
                 <dl class="grid sm:grid-cols-2 gap-4 text-sm">
                     <div><dt class="text-slate-500">Company Name</dt><dd class="font-medium">{{ $installation->company_name }}</dd></div>
+                    <div><dt class="text-slate-500">Customer Email</dt><dd class="font-medium">{{ $installation->customer_email ?: '—' }}</dd></div>
                     <div><dt class="text-slate-500">Tax ID</dt><dd class="font-medium">{{ $installation->tax_id ?: '—' }}</dd></div>
                     <div class="sm:col-span-2"><dt class="text-slate-500">Customer Address</dt><dd class="font-medium whitespace-pre-line">{{ $installation->customer_address }}</dd></div>
                     <div class="sm:col-span-2"><dt class="text-slate-500">Installer Company</dt><dd class="font-medium">{{ $installation->installer_company_name }}</dd></div>

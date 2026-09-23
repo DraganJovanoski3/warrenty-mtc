@@ -22,6 +22,7 @@ class PublicInstallationController extends Controller
     {
         $data = $request->validate([
             'company_name' => ['required', 'string', 'max:255'],
+            'customer_email' => ['required', 'email', 'max:255'],
             'tax_id' => ['nullable', 'string', 'max:100'],
             'customer_address' => ['required', 'string', 'max:1000'],
             'installer_company_name' => ['required', 'string', 'max:255'],
@@ -50,9 +51,12 @@ class PublicInstallationController extends Controller
 
         $this->storeProofPhotos($installation, $request->file('vin_photo'), $request->file('mileage_photo'));
 
+        $installation->refresh();
+        $installation->sendClaimConfirmation();
+
         return redirect()
             ->route('public.form')
-            ->with('success', 'Thank you. Your installation information has been submitted successfully.');
+            ->with('success', 'Thank you. Your installation information has been submitted successfully. A confirmation email was sent to '.$installation->customer_email.'.');
     }
 
     private function storeProofPhotos(Installation $installation, UploadedFile $vinPhoto, UploadedFile $mileagePhoto): void

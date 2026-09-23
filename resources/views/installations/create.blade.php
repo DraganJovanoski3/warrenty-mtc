@@ -30,18 +30,24 @@
                             <x-text-input id="company_name" name="company_name" class="block mt-1 w-full" :value="old('company_name', $installation->company_name ?? '')" required />
                             <x-input-error :messages="$errors->get('company_name')" class="mt-2" />
                         </div>
+                        <div class="sm:col-span-2">
+                            <x-input-label for="customer_email" value="2. Customer Email" />
+                            <x-text-input id="customer_email" name="customer_email" type="email" class="block mt-1 w-full" :value="old('customer_email', $installation->customer_email ?? '')" required />
+                            <p class="mt-1 text-xs text-slate-500">Confirmation email is sent to this address on create.</p>
+                            <x-input-error :messages="$errors->get('customer_email')" class="mt-2" />
+                        </div>
                         <div>
-                            <x-input-label for="tax_id" value="2. Tax ID" />
+                            <x-input-label for="tax_id" value="3. Tax ID" />
                             <x-text-input id="tax_id" name="tax_id" class="block mt-1 w-full" :value="old('tax_id', $installation->tax_id ?? '')" />
                             <x-input-error :messages="$errors->get('tax_id')" class="mt-2" />
                         </div>
                         <div>
-                            <x-input-label for="installer_company_name" value="4. Installer Company Name" />
+                            <x-input-label for="installer_company_name" value="5. Installer Company Name" />
                             <x-text-input id="installer_company_name" name="installer_company_name" class="block mt-1 w-full" :value="old('installer_company_name', $installation->installer_company_name ?? '')" required />
                             <x-input-error :messages="$errors->get('installer_company_name')" class="mt-2" />
                         </div>
                         <div class="sm:col-span-2">
-                            <x-input-label for="customer_address" value="3. Customer Address" />
+                            <x-input-label for="customer_address" value="4. Customer Address" />
                             <textarea id="customer_address" name="customer_address" rows="3" class="block mt-1 w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500" required>{{ old('customer_address', $installation->customer_address ?? '') }}</textarea>
                             <x-input-error :messages="$errors->get('customer_address')" class="mt-2" />
                         </div>

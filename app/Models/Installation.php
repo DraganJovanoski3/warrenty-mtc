@@ -5,12 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\InstallationClaimConfirmation;
 
 class Installation extends Model
 {
     protected $fillable = [
         'company_name',
+        'customer_email',
         'tax_id',
         'customer_address',
         'installer_company_name',
@@ -85,6 +89,27 @@ class Installation extends Model
     public function hasProofPhotos(): bool
     {
         return filled($this->vin_photo) && filled($this->mileage_photo);
+    }
+
+    public function sendClaimConfirmation(): void
+    {
+        if (! filled($this->customer_email)) {
+            return;
+        }
+
+        $contact = (string) config('services.mtc.warranty_contact_email', 'warranty@mtctruckparts.com');
+
+        try {
+            Mail::to($this->customer_email)
+                ->bcc($contact)
+                ->send(new InstallationClaimConfirmation($this));
+        } catch (\Throwable $e) {
+            Log::warning('Failed to send installation claim confirmation.', [
+                'installation_id' => $this->id,
+                'customer_email' => $this->customer_email,
+                'error' => $e->getMessage(),
+            ]);
+        }
     }
 
     public function deleteProofPhotos(): void

@@ -56,9 +56,12 @@ class InstallationController extends Controller
             $request->file('mileage_photo')
         );
 
+        $installation->refresh();
+        $installation->sendClaimConfirmation();
+
         return redirect()
             ->route('installations.index')
-            ->with('success', 'Installation record saved successfully.');
+            ->with('success', 'Installation record saved successfully. Confirmation email sent to '.$installation->customer_email.'.');
     }
 
     public function show(Installation $installation): View
@@ -122,6 +125,7 @@ class InstallationController extends Controller
 
         return $request->validate([
             'company_name' => ['required', 'string', 'max:255'],
+            'customer_email' => ['required', 'email', 'max:255'],
             'tax_id' => ['nullable', 'string', 'max:100'],
             'customer_address' => ['required', 'string', 'max:1000'],
             'installer_company_name' => ['required', 'string', 'max:255'],
