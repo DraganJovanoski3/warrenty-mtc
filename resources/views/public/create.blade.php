@@ -1,7 +1,7 @@
 <x-public-layout>
-    <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-        <div class="mb-6">
-            <h1 class="font-semibold text-xl text-slate-800 leading-tight">INSTALLATION INFORMATION &amp; PROOF OF APPLICATION</h1>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-5 sm:mb-6">
+            <h1 class="font-semibold text-lg sm:text-xl text-slate-800 leading-tight">INSTALLATION INFORMATION &amp; PROOF OF APPLICATION</h1>
             <p class="text-sm text-slate-500 mt-1">Fill in customer, truck and part details. Submitted date is set automatically.</p>
             <div class="mt-4 rounded-md bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-950">
                 <strong>Important:</strong> Warranty must be claimed within <strong>30 days</strong> of purchase.
@@ -9,17 +9,17 @@
             </div>
         </div>
 
-        <form method="POST" action="{{ route('public.submit') }}" class="space-y-6" id="installation-form" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('public.submit') }}" class="space-y-5 sm:space-y-6" id="installation-form" enctype="multipart/form-data">
             @csrf
 
             <section class="bg-white border border-slate-200 rounded-lg overflow-hidden">
-                <div class="bg-slate-900 text-white px-5 py-3">
+                <div class="bg-slate-900 text-white px-4 sm:px-5 py-3">
                     <h2 class="font-semibold tracking-wide text-sm uppercase">Customer / Company Information</h2>
                 </div>
-                <div class="p-5 grid sm:grid-cols-2 gap-4">
+                <div class="p-4 sm:p-5 grid sm:grid-cols-2 gap-4">
                     <div class="sm:col-span-2">
                         <x-input-label for="company_name" value="1. Company Name" />
-                        <x-text-input id="company_name" name="company_name" class="block mt-1 w-full" :value="old('company_name')" required />
+                        <x-text-input id="company_name" name="company_name" class="block mt-1 w-full" :value="old('company_name')" required autocomplete="organization" />
                         <x-input-error :messages="$errors->get('company_name')" class="mt-2" />
                     </div>
                     <div>
@@ -34,17 +34,17 @@
                     </div>
                     <div class="sm:col-span-2">
                         <x-input-label for="customer_address" value="3. Customer Address" />
-                        <textarea id="customer_address" name="customer_address" rows="3" class="block mt-1 w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500" required>{{ old('customer_address') }}</textarea>
+                        <textarea id="customer_address" name="customer_address" rows="3" class="block mt-1 w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 text-base" required>{{ old('customer_address') }}</textarea>
                         <x-input-error :messages="$errors->get('customer_address')" class="mt-2" />
                     </div>
                 </div>
             </section>
 
             <section class="bg-white border border-slate-200 rounded-lg overflow-hidden">
-                <div class="bg-slate-900 text-white px-5 py-3">
+                <div class="bg-slate-900 text-white px-4 sm:px-5 py-3">
                     <h2 class="font-semibold tracking-wide text-sm uppercase">Truck Information</h2>
                 </div>
-                <div class="p-5 grid sm:grid-cols-2 gap-4">
+                <div class="p-4 sm:p-5 grid sm:grid-cols-2 gap-4">
                     <div>
                         <x-input-label for="truck_number" value="1. Truck Number" />
                         <x-text-input id="truck_number" name="truck_number" class="block mt-1 w-full" :value="old('truck_number')" required />
@@ -52,12 +52,12 @@
                     </div>
                     <div>
                         <x-input-label for="vin" value="2. VIN (Vehicle Identification Number)" />
-                        <x-text-input id="vin" name="vin" class="block mt-1 w-full font-mono" :value="old('vin')" required />
+                        <x-text-input id="vin" name="vin" class="block mt-1 w-full font-mono" :value="old('vin')" required autocomplete="off" />
                         <x-input-error :messages="$errors->get('vin')" class="mt-2" />
                     </div>
                     <div>
                         <x-input-label for="mileage_at_installation" value="3. Mileage at Installation" />
-                        <x-text-input id="mileage_at_installation" name="mileage_at_installation" type="number" min="0" class="block mt-1 w-full" :value="old('mileage_at_installation')" />
+                        <x-text-input id="mileage_at_installation" name="mileage_at_installation" type="number" min="0" inputmode="numeric" class="block mt-1 w-full" :value="old('mileage_at_installation')" />
                         <x-input-error :messages="$errors->get('mileage_at_installation')" class="mt-2" />
                     </div>
                     <div>
@@ -66,28 +66,26 @@
                         <x-input-error :messages="$errors->get('installation_date')" class="mt-2" />
                     </div>
                     <div class="sm:col-span-2 rounded-md bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-900">
-                        Upload clear photos of the VIN plate and odometer as proof.
+                        Upload clear photos of the VIN plate and odometer as proof. On a phone you can take a photo directly.
                     </div>
                     <div>
                         <x-input-label for="vin_photo" value="5. VIN Photo" />
-                        <input id="vin_photo" name="vin_photo" type="file" accept="image/*" capture="environment" required
-                            class="block mt-1 w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:bg-slate-900 file:text-white file:text-sm hover:file:bg-slate-800" />
+                        <input id="vin_photo" name="vin_photo" type="file" accept="image/*" capture="environment" required class="form-file-input" />
                         <x-input-error :messages="$errors->get('vin_photo')" class="mt-2" />
                     </div>
                     <div>
                         <x-input-label for="mileage_photo" value="6. Mileage / Odometer Photo" />
-                        <input id="mileage_photo" name="mileage_photo" type="file" accept="image/*" capture="environment" required
-                            class="block mt-1 w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:bg-slate-900 file:text-white file:text-sm hover:file:bg-slate-800" />
+                        <input id="mileage_photo" name="mileage_photo" type="file" accept="image/*" capture="environment" required class="form-file-input" />
                         <x-input-error :messages="$errors->get('mileage_photo')" class="mt-2" />
                     </div>
                 </div>
             </section>
 
             <section class="bg-white border border-slate-200 rounded-lg overflow-hidden">
-                <div class="bg-slate-900 text-white px-5 py-3">
+                <div class="bg-slate-900 text-white px-4 sm:px-5 py-3">
                     <h2 class="font-semibold tracking-wide text-sm uppercase">Part &amp; Purchase Information</h2>
                 </div>
-                <div class="p-5 grid sm:grid-cols-2 gap-4">
+                <div class="p-4 sm:p-5 grid sm:grid-cols-2 gap-4">
                     <div class="sm:col-span-2">
                         <x-input-label for="product_id" value="Select Product" />
                         @php
@@ -97,7 +95,7 @@
                                 'description' => $p->description,
                             ])->values();
                         @endphp
-                        <select id="product_id" name="product_id" required class="block mt-1 w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500"
+                        <select id="product_id" name="product_id" required class="block mt-1 w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 text-base"
                             data-products='@json($productOptions)'>
                             <option value="">— Choose product —</option>
                             @foreach ($products as $product)
@@ -113,11 +111,11 @@
                     </div>
                     <div>
                         <x-input-label for="part_number_display" value="1. Part Number" />
-                        <input id="part_number_display" type="text" readonly class="block mt-1 w-full rounded-md border-slate-200 bg-slate-50 text-slate-600 shadow-sm font-mono" value="">
+                        <input id="part_number_display" type="text" readonly class="block mt-1 w-full rounded-md border-slate-200 bg-slate-50 text-slate-600 shadow-sm font-mono text-base" value="">
                     </div>
                     <div>
                         <x-input-label for="part_description_display" value="2. Part Description" />
-                        <input id="part_description_display" type="text" readonly class="block mt-1 w-full rounded-md border-slate-200 bg-slate-50 text-slate-600 shadow-sm" value="">
+                        <input id="part_description_display" type="text" readonly class="block mt-1 w-full rounded-md border-slate-200 bg-slate-50 text-slate-600 shadow-sm text-base" value="">
                     </div>
                     <div>
                         <x-input-label for="invoice_number" value="3. Invoice Number" />
@@ -135,9 +133,9 @@
                 </div>
             </section>
 
-            <div class="flex items-center justify-end gap-3">
+            <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-end gap-3 sticky bottom-0 sm:static bg-slate-100/95 sm:bg-transparent py-3 -mx-4 px-4 sm:mx-0 sm:px-0 border-t border-slate-200 sm:border-0 backdrop-blur sm:backdrop-blur-none">
                 <button type="submit"
-                    class="inline-flex items-center px-4 py-2 bg-amber-500 border border-transparent rounded-md font-semibold text-xs text-slate-900 uppercase tracking-widest hover:bg-amber-400 focus:bg-amber-500 active:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                    class="w-full sm:w-auto inline-flex justify-center items-center px-5 py-3 sm:py-2.5 bg-amber-500 border border-transparent rounded-md font-semibold text-sm text-slate-900 uppercase tracking-widest hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition disabled:opacity-50"
                     @if ($products->isEmpty()) disabled @endif>
                     Submit Installation
                 </button>

@@ -20,23 +20,23 @@
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white border border-slate-200 rounded-lg p-5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                <div class="bg-white border border-slate-200 rounded-lg p-4 sm:p-5">
                     <div class="text-xs uppercase tracking-wide text-slate-500">Installations</div>
-                    <div class="mt-2 text-3xl font-semibold text-slate-900">{{ $totalInstallations }}</div>
+                    <div class="mt-2 text-2xl sm:text-3xl font-semibold text-slate-900">{{ $totalInstallations }}</div>
                 </div>
-                <div class="bg-white border border-slate-200 rounded-lg p-5">
+                <div class="bg-white border border-slate-200 rounded-lg p-4 sm:p-5">
                     <div class="text-xs uppercase tracking-wide text-slate-500">Products used</div>
-                    <div class="mt-2 text-3xl font-semibold text-slate-900">{{ $uniqueProducts }}</div>
+                    <div class="mt-2 text-2xl sm:text-3xl font-semibold text-slate-900">{{ $uniqueProducts }}</div>
                 </div>
-                <div class="bg-white border border-slate-200 rounded-lg p-5">
+                <div class="bg-white border border-slate-200 rounded-lg p-4 sm:p-5">
                     <div class="text-xs uppercase tracking-wide text-slate-500">Unique trucks (VIN)</div>
-                    <div class="mt-2 text-3xl font-semibold text-slate-900">{{ $uniqueTrucks }}</div>
+                    <div class="mt-2 text-2xl sm:text-3xl font-semibold text-slate-900">{{ $uniqueTrucks }}</div>
                 </div>
-                <div class="bg-white border border-slate-200 rounded-lg p-5">
+                <div class="bg-white border border-slate-200 rounded-lg p-4 sm:p-5">
                     <div class="text-xs uppercase tracking-wide text-slate-500">Companies</div>
-                    <div class="mt-2 text-3xl font-semibold text-slate-900">{{ $uniqueCompanies }}</div>
+                    <div class="mt-2 text-2xl sm:text-3xl font-semibold text-slate-900">{{ $uniqueCompanies }}</div>
                 </div>
             </div>
 

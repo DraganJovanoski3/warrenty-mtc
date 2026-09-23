@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'MTC Warranty') }}</title>
@@ -15,12 +15,12 @@
     <body class="font-sans text-slate-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
             <div class="text-center mb-2">
-                <img src="{{ asset('images/logo.png') }}" alt="MTC" class="h-14 w-auto mx-auto mb-3">
-                <h1 class="text-white text-2xl font-semibold tracking-wide">Warranty Tracker</h1>
-                <p class="text-slate-400 text-sm mt-1">Installation information &amp; proof of application</p>
+                <img src="{{ asset('images/logo.png') }}" alt="MTC" class="h-12 sm:h-14 w-auto max-w-[200px] mx-auto mb-3 object-contain">
+                <h1 class="text-white text-xl sm:text-2xl font-semibold tracking-wide px-4">Warranty Tracker</h1>
+                <p class="text-slate-400 text-sm mt-1 px-4">Installation information &amp; proof of application</p>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-6 bg-white shadow-xl overflow-hidden sm:rounded-lg">
+            <div class="w-full max-w-md mt-6 mx-4 sm:mx-auto px-5 sm:px-6 py-6 bg-white shadow-xl overflow-hidden rounded-lg">
                 {{ $slot }}
             </div>
 

@@ -1,5 +1,5 @@
 <x-public-layout>
-    <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-white border border-slate-200 rounded-lg p-6 sm:p-8 space-y-5 text-sm text-slate-700 leading-relaxed">
             <h1 class="text-xl font-semibold text-slate-900">Warranty Policy</h1>
 

@@ -12,7 +12,7 @@
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <form method="POST" action="{{ $action }}" class="space-y-6" id="installation-form" enctype="multipart/form-data">
                 @csrf
                 @if ($isEdit)
@@ -89,7 +89,7 @@
                             @endif
                             <input id="vin_photo" name="vin_photo" type="file" accept="image/*" capture="environment"
                                 @unless($isEdit) required @endunless
-                                class="block mt-1 w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:bg-slate-900 file:text-white file:text-sm hover:file:bg-slate-800" />
+                                class="form-file-input" />
                             <x-input-error :messages="$errors->get('vin_photo')" class="mt-2" />
                         </div>
                         <div>
@@ -104,7 +104,7 @@
                             @endif
                             <input id="mileage_photo" name="mileage_photo" type="file" accept="image/*" capture="environment"
                                 @unless($isEdit) required @endunless
-                                class="block mt-1 w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:bg-slate-900 file:text-white file:text-sm hover:file:bg-slate-800" />
+                                class="form-file-input" />
                             <x-input-error :messages="$errors->get('mileage_photo')" class="mt-2" />
                         </div>
                     </div>
@@ -158,9 +158,9 @@
                     </div>
                 </section>
 
-                <div class="flex items-center justify-end gap-3">
-                    <a href="{{ route('installations.index') }}" class="text-sm text-slate-600 hover:underline">Cancel</a>
-                    <x-primary-button class="!bg-amber-500 !text-slate-900 hover:!bg-amber-400 focus:!bg-amber-500 active:!bg-amber-600">
+                <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-end gap-3">
+                    <a href="{{ route('installations.index') }}" class="text-center text-sm text-slate-600 hover:underline py-2">Cancel</a>
+                    <x-primary-button class="w-full sm:w-auto justify-center !bg-amber-500 !text-slate-900 hover:!bg-amber-400 focus:!bg-amber-500 active:!bg-amber-600 !py-3 sm:!py-2">
                         {{ $isEdit ? 'Update Record' : 'Save Installation' }}
                     </x-primary-button>
                 </div>

@@ -13,7 +13,7 @@
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-4">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
             <div class="bg-white border border-slate-200 rounded-lg p-6">
                 <h3 class="text-xs uppercase tracking-wide text-slate-500 mb-3">Customer / Company</h3>
                 <dl class="grid sm:grid-cols-2 gap-4 text-sm">

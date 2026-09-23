@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    /* Prevent iOS zoom on focus; keep tap targets comfortable */
+    input,
+    select,
+    textarea,
+    button {
+        font-size: 16px;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}
+
+@layer components {
+    .form-file-input {
+        @apply block mt-1 w-full text-sm text-slate-600
+            file:mr-3 file:py-2.5 file:px-4 file:rounded-md file:border-0
+            file:bg-slate-900 file:text-white file:text-sm file:font-medium
+            hover:file:bg-slate-800 file:cursor-pointer;
+    }
+}
+
