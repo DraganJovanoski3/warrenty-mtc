@@ -25,6 +25,8 @@
             </div>
 
             <p class="mt-8 mb-6 text-center text-xs text-slate-400 px-4 space-x-3">
+                <a href="https://mtctruckparts.com/" class="hover:text-slate-200 hover:underline" target="_blank" rel="noopener">Back to shop</a>
+                <span class="text-slate-600">·</span>
                 <a href="{{ route('pages.privacy') }}" class="hover:text-slate-200 hover:underline">Privacy Policy</a>
                 <span class="text-slate-600">·</span>
                 <a href="{{ route('pages.warranty-policy') }}" class="hover:text-slate-200 hover:underline">Warranty Policy</a>

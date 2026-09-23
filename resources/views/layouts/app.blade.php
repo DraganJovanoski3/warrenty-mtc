@@ -43,6 +43,7 @@
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between text-sm text-slate-500">
                     <span>MTC Installation &amp; Warranty Tracker</span>
                     <span class="flex flex-wrap gap-x-4 gap-y-1">
+                        <a href="https://mtctruckparts.com/" class="hover:text-slate-800 hover:underline" target="_blank" rel="noopener">Back to shop</a>
                         <a href="{{ route('pages.privacy') }}" class="hover:text-slate-800 hover:underline">Privacy Policy</a>
                         <a href="{{ route('pages.warranty-policy') }}" class="hover:text-slate-800 hover:underline">Warranty Policy</a>
                     </span>

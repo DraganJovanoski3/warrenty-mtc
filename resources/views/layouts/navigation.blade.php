@@ -28,7 +28,8 @@
                 </div>
             </div>
 
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden sm:flex sm:items-center sm:ms-6 gap-4">
+                <a href="https://mtctruckparts.com/" class="text-sm text-slate-300 hover:text-white font-medium whitespace-nowrap" target="_blank" rel="noopener">Back to shop</a>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-200 bg-slate-800 hover:text-white focus:outline-none transition">
@@ -67,6 +68,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-slate-900 border-t border-slate-800">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Home</x-responsive-nav-link>
+            <x-responsive-nav-link href="https://mtctruckparts.com/">Back to shop</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('installations.create')" :active="request()->routeIs('installations.create')">New Installation</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('installations.index')" :active="request()->routeIs('installations.*')">Records</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">Products</x-responsive-nav-link>
