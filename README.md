@@ -51,6 +51,90 @@ npm install && npm run build
 
 Change this password after first login.
 
+## Live: mtctruckparts.com/warranty (WordPress + Laravel)
+
+Keep the full Laravel app in `~/warranty.mtctruckparts.com/`. Serve only its `public` folder at `mtctruckparts.com/warranty` so WordPress stays on the main domain.
+
+### 1. App `.env` (inside `warranty.mtctruckparts.com`)
+
+```env
+APP_URL=https://mtctruckparts.com/warranty
+ASSET_URL=https://mtctruckparts.com/warranty
+SESSION_PATH=/warranty
+```
+
+Then:
+
+```bash
+php artisan config:clear
+php artisan route:clear
+php artisan cache:clear
+php artisan storage:link
+```
+
+### 2. Symlink (preferred, SSH)
+
+From inside the WordPress site folder (`mtctruckparts.com`):
+
+```bash
+# remove a wrong/empty warranty folder first if needed
+rm -rf warranty
+ln -s ../../warranty.mtctruckparts.com/public warranty
+```
+
+Adjust the relative path until it points at `warranty.mtctruckparts.com/public`.
+
+### 3. If symlink is blocked (File Manager)
+
+Create folder `mtctruckparts.com/warranty/` with:
+
+**`.htaccess`** — copy from Laravel `public/.htaccess`
+
+**`index.php`** — bootstrap the existing app (paths relative to your layout):
+
+```php
+<?php
+
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
+
+define('LARAVEL_START', microtime(true));
+
+$laravelRoot = __DIR__.'/../../warranty.mtctruckparts.com';
+
+if (file_exists($maintenance = $laravelRoot.'/storage/framework/maintenance.php')) {
+    require $maintenance;
+}
+
+require $laravelRoot.'/vendor/autoload.php';
+
+/** @var Application $app */
+$app = require_once $laravelRoot.'/bootstrap/app.php';
+
+$app->handleRequest(Request::capture());
+```
+
+Also copy (or symlink) into that folder: `build/`, `logo.png`, and any other public assets. Prefer keeping assets only in `warranty.mtctruckparts.com/public` when using a real symlink.
+
+### 4. WordPress `.htaccess`
+
+If `/warranty` is rewritten by WP permalinks, add **before** the WordPress rules:
+
+```apache
+RewriteRule ^warranty($|/) - [L]
+```
+
+A real `warranty` directory/symlink usually wins without this.
+
+### 5. Check
+
+- https://mtctruckparts.com/warranty — public form
+- https://mtctruckparts.com/warranty/login — staff login
+- Logo: `/warranty/logo.png`
+- Proof photos: `/warranty/media/...`
+
+Generated links use `APP_URL`. The old subdomain can keep the same document root; optional later: redirect subdomain → `/warranty`.
+
 ## Live server / subdomain (fixes 403)
 
 **Best setup:** in cPanel / hosting, set the subdomain document root to:
