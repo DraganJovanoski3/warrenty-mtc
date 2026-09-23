@@ -24,9 +24,10 @@
                 {{ $slot }}
             </div>
 
-            <p class="mt-8 mb-6 text-center text-xs text-slate-400 px-4">
-                Made by Dragan Jovanoski — DD Solutions<br>
-                <a href="https://ddsolutions.com.mk/" class="text-amber-400 hover:underline" target="_blank" rel="noopener">https://ddsolutions.com.mk/</a>
+            <p class="mt-8 mb-6 text-center text-xs text-slate-400 px-4 space-x-3">
+                <a href="{{ route('pages.privacy') }}" class="hover:text-slate-200 hover:underline">Privacy Policy</a>
+                <span class="text-slate-600">·</span>
+                <a href="{{ route('pages.warranty-policy') }}" class="hover:text-slate-200 hover:underline">Warranty Policy</a>
             </p>
         </div>
     </body>

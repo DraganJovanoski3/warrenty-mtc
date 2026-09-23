@@ -3,6 +3,10 @@
         <div class="mb-6">
             <h1 class="font-semibold text-xl text-slate-800 leading-tight">INSTALLATION INFORMATION &amp; PROOF OF APPLICATION</h1>
             <p class="text-sm text-slate-500 mt-1">Fill in customer, truck and part details. Submitted date is set automatically.</p>
+            <div class="mt-4 rounded-md bg-amber-50 border border-amber-200 px-4 py-3 text-sm text-amber-950">
+                <strong>Important:</strong> Warranty must be claimed within <strong>30 days</strong> of purchase.
+                See the <a href="{{ route('pages.warranty-policy') }}" class="underline font-medium hover:text-amber-800">Warranty Policy</a> for details.
+            </div>
         </div>
 
         <form method="POST" action="{{ route('public.submit') }}" class="space-y-6" id="installation-form" enctype="multipart/form-data">

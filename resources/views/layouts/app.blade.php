@@ -42,9 +42,9 @@
             <footer class="border-t border-slate-200 bg-white mt-auto">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between text-sm text-slate-500">
                     <span>MTC Installation &amp; Warranty Tracker</span>
-                    <span>
-                        Made by Dragan Jovanoski — DD Solutions
-                        <a href="https://ddsolutions.com.mk/" class="text-amber-700 hover:underline font-medium" target="_blank" rel="noopener">https://ddsolutions.com.mk/</a>
+                    <span class="flex flex-wrap gap-x-4 gap-y-1">
+                        <a href="{{ route('pages.privacy') }}" class="hover:text-slate-800 hover:underline">Privacy Policy</a>
+                        <a href="{{ route('pages.warranty-policy') }}" class="hover:text-slate-800 hover:underline">Warranty Policy</a>
                     </span>
                 </div>
             </footer>

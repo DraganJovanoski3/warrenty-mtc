@@ -13,6 +13,9 @@ Route::post('/submit', [PublicInstallationController::class, 'store'])
     ->middleware('throttle:10,1')
     ->name('public.submit');
 
+Route::view('/privacy', 'pages.privacy')->name('pages.privacy');
+Route::view('/warranty-policy', 'pages.warranty-policy')->name('pages.warranty-policy');
+
 Route::get('/media/{path}', function (string $path) {
     abort_unless(str_starts_with($path, 'installations/'), 404);
 
