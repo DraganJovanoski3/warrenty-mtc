@@ -15,7 +15,7 @@
     <body class="font-sans text-slate-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
             <div class="text-center mb-2">
-                <img src="{{ asset('logo.png') }}" alt="MTC" class="h-14 w-auto mx-auto mb-3">
+                <img src="{{ asset('images/logo.png') }}" alt="MTC" class="h-14 w-auto mx-auto mb-3">
                 <h1 class="text-white text-2xl font-semibold tracking-wide">Warranty Tracker</h1>
                 <p class="text-slate-400 text-sm mt-1">Installation information &amp; proof of application</p>
             </div>

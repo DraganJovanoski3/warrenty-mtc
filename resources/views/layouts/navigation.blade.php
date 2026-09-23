@@ -4,7 +4,7 @@
             <div class="flex">
                 <div class="shrink-0 flex items-center gap-3">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
-                        <img src="{{ asset('logo.png') }}" alt="MTC" class="h-9 w-auto">
+                        <img src="{{ asset('images/logo.png') }}" alt="MTC" class="h-9 w-auto">
                         <span class="text-white font-semibold tracking-wide hidden sm:inline">Warranty Tracker</span>
                     </a>
                 </div>

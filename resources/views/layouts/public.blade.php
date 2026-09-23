@@ -17,7 +17,7 @@
             <header class="bg-slate-900 border-b border-slate-800">
                 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
                     <a href="{{ route('public.form') }}" class="flex items-center gap-3">
-                        <img src="{{ asset('logo.png') }}" alt="MTC" class="h-10 w-auto">
+                        <img src="{{ asset('images/logo.png') }}" alt="MTC" class="h-10 w-auto">
                         <div>
                             <div class="text-white font-semibold tracking-wide">Warranty Tracker</div>
                             <div class="text-slate-400 text-xs">Installation information &amp; proof of application</div>
